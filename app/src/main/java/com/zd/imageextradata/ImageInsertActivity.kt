@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.zd.imageextradata.util.DialogUtil
 import com.zd.imageextradata.util.FileUtil
+import com.zd.imageextradata.util.PngUtil
 import kotlinx.android.synthetic.main.activity_image_insert.*
 import java.io.File
 import java.io.IOException
@@ -42,6 +43,7 @@ class ImageInsertActivity : AppCompatActivity() {
                 }
             }
         }
+        radio_png?.text = "PNG(不起作用-。-)"
         btn_write?.setOnClickListener {
             val info = et_extra_data?.text?.toString() ?: ""
             if (TextUtils.isEmpty(info)) {
@@ -74,7 +76,7 @@ class ImageInsertActivity : AppCompatActivity() {
             savePath + File.separator, saveFileName) ?: return
         Log.i(TAG, saveFile.absolutePath)
         try {
-            val extraInfo = "zd_$info"
+            val extraInfo = EXTRA_PREFIX + info
             //保存信息（不能自定义属性）
             val mExifInterface = ExifInterface(saveFile.absolutePath)
             mExifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, extraInfo)
@@ -117,9 +119,13 @@ class ImageInsertActivity : AppCompatActivity() {
     private fun addExtraDataToPNGPicture(info: String?) {
         //从assets目的读取图片并保存至sdCard
         val saveFile = FileUtil.getAssetsFile(this, fileName,
-            savePath + File.separator, saveFileName) ?: return
+            savePath + File.separator, PNG_TEMP_FILE_NAME) ?: return
         Log.i(TAG, saveFile.absolutePath)
-        //todo insert extra data
+        //todo no use
+        val extraInfo = EXTRA_PREFIX + info
+        PngUtil.writeFileToPng(saveFile.absolutePath, extraInfo,
+            savePath + File.separator + saveFileName)
+        tv_save_data_result?.text = getString(R.string.save_extra_data, extraInfo)
     }
 
     /**
@@ -132,7 +138,11 @@ class ImageInsertActivity : AppCompatActivity() {
         if (!file.exists()) {
             return
         }
-        //todo read extra data
+        val fileBitmap = FileUtil.getFileBitmap(file) ?: return
+        iv_image?.setImageBitmap(fileBitmap)
+        //todo no use
+        val extraString = PngUtil.readTextFromPng(savePath + File.separator + saveFileName)
+        tv_read_data_result?.text = getString(R.string.read_extra_data, extraString)
     }
 
     companion object {
@@ -141,7 +151,9 @@ class ImageInsertActivity : AppCompatActivity() {
         private const val FORMAT_PNG = "png"
         private const val JPG_FILE_NAME = "test_jpg.jpg"
         private const val PNG_FILE_NAME = "test_png.png"
+        private const val PNG_TEMP_FILE_NAME = "test_insert_temp_png.png"
         private const val JPG_EXTRA_FILE_NAME = "test_insert_jpg_extra.jpg"
         private const val PNG_EXTRA_FILE_NAME = "test_insert_png_extra.png"
+        private const val EXTRA_PREFIX = "zd_"
     }
 }

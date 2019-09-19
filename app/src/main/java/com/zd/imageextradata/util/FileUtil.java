@@ -93,7 +93,8 @@ public class FileUtil {
         }
         Bitmap bitmap = null;
         try {
-            bitmap = BitmapFactory.decodeStream(new FileInputStream(imageFile));
+            FileInputStream inputStream = new FileInputStream(imageFile);
+            bitmap = BitmapFactory.decodeStream(inputStream);
         } catch (OutOfMemoryError e) {
             Log.w(LOG_TAG, "OOM", e);
             System.gc();
