@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">ImageExtraData</string>
+    <string name="insert_image_extra_data">图片插入额外信息</string>
+    <string name="append_image_extra_data">图片拼接额外信息</string>
+
+    <string name="select_image_format">图片格式选择</string>
+    <string name="image_format_jpg">JPG</string>
+    <string name="image_format_png">PNG</string>
+    <string name="extra_data">额外信息</string>
+    <string name="tip_extra_data_empty">额外信息不能为空</string>
+    <string name="write">写入</string>
+    <string name="read">读取</string>
+    <string name="save_extra_data">保存的信息：%1$s</string>
+    <string name="read_extra_data">读取的的信息：%1$s</string>
+
+    <string name="grant_permission_phone_call">请到设置中开启应用的电话权限</string>
+    <string name="grant_permission_camera">请到设置中开启应用的摄像头权限</string>
+    <string name="grant_permission_audio">请到设置中开启应用的麦克风权限</string>
+    <string name="grant_permission_read_contact">请到设置中开启应用的通讯录权限</string>
+    <string name="grant_permission_location">获取位置信息失败，请到设置中开启应用的位置信息权限</string>
+    <string name="finder_camara_file_read_permission">请到设置中开启应用的拍照和文件操作等相关权限</string>
+    <string name="open_storagstre_permission_prompt">请到设置中开启应用的存储权限</string>
+
+    <string name="check_image_extra_data">如何查看图片中隐藏的信息，将图片转存到Mac电脑中，终端中执行命令："vi+图片位置"，然后执行："/+插入内容"，即可搜索到插入的内容</string>
+
+</resources>
